@@ -1,13 +1,17 @@
-import { Typography, TextField, Avatar } from '@mui/material';
-import { FaSearch, FaUser } from 'react-icons/fa';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
+import { useState } from 'react';
 import OvalBar from '../ovalBar';
+import { FaSearch } from 'react-icons/fa';
+import Rating from '@mui/material/Rating';
+import { RiLogoutCircleRLine } from "react-icons/ri";
+import InterestsIcon from '@mui/icons-material/Interests';
+import { Typography, TextField, Avatar } from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 const data = [
@@ -33,12 +37,22 @@ const data = [
 
 const Dashboard = () => {
   const percentage = 66;
+  const [value, setValue] = useState<number | null>(2);
 
   return (
-    <div className="h-full w-full bg-gray-900 text-white flex">
-      <div className='hidden md:block w-[4%] bg-gray-800'></div>
-      <div className='w-[100%] md:w-[96%]'>
-        <div className="flex justify-between p-4 bg-gray-800">
+    <div className="h-screen w-full bg-gray-900 text-white flex overflow-y-hidden">
+      <div className='hidden md:block h-full md:w-[6%] lg:w-[5%] xl:w-[4%] bg-gray-800'>
+        <div className='flex flex-col justify-between items-center h-full w-full'>
+          <div className='py-4'>
+            <InterestsIcon sx={{height:'40px',width:'40px',color:'#6EACDA'}}/>
+          </div>
+          <div className='py-4'>
+            <RiLogoutCircleRLine className='h-5 w-5' />
+          </div>
+        </div>
+      </div>
+      <div className='w-[100%] md:w-[94%] lg:w-[95%] xl:w-[96%] overflow-y-scroll hidden-scrollbar'>
+        <div className="flex justify-between p-4 bg-gray-800 sticky top-0 z-20">
           <TextField
             variant="outlined"
             size="small"
@@ -64,7 +78,7 @@ const Dashboard = () => {
               <Avatar className='cursor-pointer' />
             </div>
           </div>
-          <div className='block md:hidden'><Avatar className='cursor-pointer' /></div>
+          {/* <div className='block md:hidden'><Avatar className='cursor-pointer' /></div> */}
         </div>
         <div className='grid grid-cols-6 m-4'>
           <div className='col-span-6 pb-4 text-2xl font-medium'>Dashboard</div>
@@ -180,9 +194,11 @@ const Dashboard = () => {
               <div><KeyboardArrowRightIcon className='p-1 bg-slate-500 rounded-full' /></div>
             </div>
           </div>
-          <div className='col-span-6 md:col-span-4 bg-gray-800 mt-4 p-4 rounded-md text-xs md:text-sm max-h-[400px] overflow-y-scroll'>
-            <Typography variant="h6">Recent Orders</Typography>
-            <table className="w-full ">
+          <div className='col-span-6 md:col-span-4 bg-gray-800 mt-4 px-4 pb-4 rounded-md text-xs md:text-sm max-h-[400px] overflow-y-scroll hidden-scrollbar'>
+            <div className='sticky top-0 bg-gray-800 p-2 z-10'>
+              <Typography variant="h6">Recent Orders</Typography>
+            </div>
+            <table className="w-full">
               <thead>
                 <tr>
                   <td>Customer</td>
@@ -264,6 +280,53 @@ const Dashboard = () => {
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div className='col-span-6 md:col-span-2 bg-gray-800 rounded-md md:ml-4 mt-4 px-4 pb-4 text-xs md:text-sm max-h-[400px] overflow-y-scroll hidden-scrollbar'>
+            <div className='sticky top-0 bg-gray-800 p-2 z-10'>
+              <Typography variant="h6">Customer's Feedback</Typography>
+            </div>
+            <div className="w-full">
+              <div className='py-2 border-b border-slate-700'>
+                <div className='flex items-center gap-1 md:gap-3'><Avatar sx={{ height: '24px', width: '24px' }} />John Doe</div>
+                <Rating
+                  name="simple-controlled"
+                  value={value}
+                  onChange={(event, newValue) => { setValue(newValue) }}
+                  className='py-2' sx={{ '& .MuiRating-iconEmpty': { color: 'white', }, fontSize: '20px' }}
+                />
+                <div className='text-xs font-light text-slate-300'>I enjoy watching or playing & watching cricket, running, and drawing.</div>
+              </div>
+              <div className='py-2 border-b border-slate-700'>
+                <div className='flex items-center gap-1 md:gap-3'><Avatar sx={{ height: '24px', width: '24px' }} />John Doe</div>
+                <Rating
+                  name="simple-controlled"
+                  value={value}
+                  onChange={(event, newValue) => { setValue(newValue) }}
+                  className='py-2' sx={{ '& .MuiRating-iconEmpty': { color: 'white', }, fontSize: '20px' }}
+                />
+                <div className='text-xs font-light text-slate-300'>I enjoy watching or playing & watching cricket, running, and drawing.</div>
+              </div>
+              <div className='py-2 border-b border-slate-700'>
+                <div className='flex items-center gap-1 md:gap-3'><Avatar sx={{ height: '24px', width: '24px' }} />John Doe</div>
+                <Rating
+                  name="simple-controlled"
+                  value={value}
+                  onChange={(event, newValue) => { setValue(newValue) }}
+                  className='py-2' sx={{ '& .MuiRating-iconEmpty': { color: 'white', }, fontSize: '20px' }}
+                />
+                <div className='text-xs font-light text-slate-300'>I enjoy watching or playing & watching cricket, running, and drawing.</div>
+              </div>
+              <div className='py-2 border-b border-slate-700'>
+                <div className='flex items-center gap-1 md:gap-3'><Avatar sx={{ height: '24px', width: '24px' }} />John Doe</div>
+                <Rating
+                  name="simple-controlled"
+                  value={value}
+                  onChange={(event, newValue) => { setValue(newValue) }}
+                  className='py-2' sx={{ '& .MuiRating-iconEmpty': { color: 'white', }, fontSize: '20px' }}
+                />
+                <div className='text-xs font-light text-slate-300'>I enjoy watching or playing & watching cricket, running, and drawing.</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
