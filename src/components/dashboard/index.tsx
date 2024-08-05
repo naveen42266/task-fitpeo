@@ -1,15 +1,21 @@
 import { useState } from 'react';
 import OvalBar from '../ovalBar';
+import { HiHome } from "react-icons/hi";
 import { FaSearch } from 'react-icons/fa';
 import Rating from '@mui/material/Rating';
+import { CiWallet } from "react-icons/ci";
+import { MdShoppingBag } from "react-icons/md";
+import MenuIcon from '@mui/icons-material/Menu';
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import InterestsIcon from '@mui/icons-material/Interests';
-import { Typography, TextField, Avatar } from '@mui/material';
+import AssessmentIcon from '@mui/icons-material/Assessment';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import { Typography, TextField, Avatar, Tabs, Tab } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
 import { CircularProgressbar } from 'react-circular-progressbar';
@@ -37,14 +43,44 @@ const data = [
 
 const Dashboard = () => {
   const percentage = 66;
+  const tabs = ['1', '2', '3', '4', '5'];
   const [value, setValue] = useState<number | null>(2);
-
+  const [tab, setTab] = useState<any>(0);
+  const handleChangeTabs = (event: React.SyntheticEvent, newValue: number) => {
+    setTab(newValue);
+    console.log(newValue)
+  };
   return (
     <div className="h-screen w-full bg-gray-900 text-white flex overflow-y-hidden">
       <div className='hidden md:block h-full md:w-[6%] lg:w-[5%] xl:w-[4%] bg-gray-800'>
         <div className='flex flex-col justify-between items-center h-full w-full'>
           <div className='py-4'>
-            <InterestsIcon sx={{height:'40px',width:'40px',color:'#6EACDA'}}/>
+            <div className='flex justify-center items-center'> <InterestsIcon sx={{ height: '40px', width: '40px', color: '#6EACDA' }} /></div>
+            <Tabs
+              orientation="vertical"
+              value={tab}
+              onChange={handleChangeTabs}
+              aria-label="basic tabs example"
+              sx={{ minWidth: '50px', paddingY: '14px' }}
+            >
+              {tabs.map((ele, index) => (
+                <Tab
+                  key={index}
+                  sx={{
+                    minWidth: '45px',
+                    color: tab === ele ? 'primary.main' : 'white',
+                  }}
+                  icon={
+                    ele === '1' ? <HiHome className='h-6 w-6' /> :
+                      ele === '2' ? <AssessmentIcon className='h-6 w-6' /> :
+                        ele === '3' ? <AssignmentTurnedInIcon className='h-6 w-6' /> :
+                          ele === '4' ? <CiWallet className='h-6 w-6' /> :
+                            ele === '5' ? <MdShoppingBag className='h-6 w-6' /> :
+                              ''
+                  }
+                />
+              ))}
+            </Tabs>
           </div>
           <div className='py-4'>
             <RiLogoutCircleRLine className='h-5 w-5' />
@@ -78,7 +114,7 @@ const Dashboard = () => {
               <Avatar className='cursor-pointer' />
             </div>
           </div>
-          {/* <div className='block md:hidden'><Avatar className='cursor-pointer' /></div> */}
+          <div className='block md:hidden'><MenuIcon className='cursor-pointer' /></div>
         </div>
         <div className='grid grid-cols-6 m-4'>
           <div className='col-span-6 pb-4 text-2xl font-medium'>Dashboard</div>
@@ -328,6 +364,34 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className='block md:hidden sticky bottom-0 w-full bg-gray-800 z-20'>
+          <Tabs
+            value={tab}
+            onChange={handleChangeTabs}
+            aria-label="basic tabs example"
+            sx={{ width: '100%' }}
+            className='w-full'
+          >
+            {tabs.map((ele, index) => (
+              <Tab
+                key={index}
+                sx={{
+                  minWidth: 0, // Allows the Tab to shrink to fit content
+                  flex: 1, // Make tabs expand to fill available space
+                  color: tab === ele ? 'primary.main' : 'white',
+                }}
+                icon={
+                  ele === '1' ? <HiHome className='h-6 w-6' /> :
+                    ele === '2' ? <AssessmentIcon className='h-6 w-6' /> :
+                      ele === '3' ? <AssignmentTurnedInIcon className='h-6 w-6' /> :
+                        ele === '4' ? <CiWallet className='h-6 w-6' /> :
+                          ele === '5' ? <MdShoppingBag className='h-6 w-6' /> :
+                            ''
+                }
+              />
+            ))}
+          </Tabs>
         </div>
       </div>
     </div>
