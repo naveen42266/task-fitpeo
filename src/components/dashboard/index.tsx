@@ -13,7 +13,7 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import { Typography, TextField, Avatar, Tabs, Tab } from '@mui/material';
+import { Typography, TextField, Avatar, Tabs, Tab, Drawer } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
@@ -43,12 +43,12 @@ const data = [
 
 const Dashboard = () => {
   const percentage = 66;
-  const tabs = ['1', '2', '3', '4', '5'];
+  const tabs = ['0', '1', '2', '3', '4'];
   const [value, setValue] = useState<number | null>(2);
   const [tab, setTab] = useState<any>(0);
+  const [open, setOpen] = useState<boolean>(false)
   const handleChangeTabs = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
-    console.log(newValue)
   };
   return (
     <div className="h-screen w-full bg-gray-900 text-white flex overflow-y-hidden">
@@ -68,14 +68,14 @@ const Dashboard = () => {
                   key={index}
                   sx={{
                     minWidth: '45px',
-                    color: tab === ele ? 'primary.main' : 'white',
+                    color: tab == ele ? '#6EACDA' : 'white',
                   }}
                   icon={
-                    ele === '1' ? <HiHome className='h-6 w-6' /> :
-                      ele === '2' ? <AssessmentIcon className='h-6 w-6' /> :
-                        ele === '3' ? <AssignmentTurnedInIcon className='h-6 w-6' /> :
-                          ele === '4' ? <CiWallet className='h-6 w-6' /> :
-                            ele === '5' ? <MdShoppingBag className='h-6 w-6' /> :
+                    ele === '0' ? <HiHome className={`h-6 w-6 ${tab == ele ? 'text-[#6EACDA]' : 'text-white'}`} /> :
+                      ele === '1' ? <AssessmentIcon className={`h-6 w-6 ${tab == ele ? 'text-[#6EACDA]' : 'text-white'}`} /> :
+                        ele === '2' ? <AssignmentTurnedInIcon className={`h-6 w-6 ${tab == ele ? 'text-[#6EACDA]' : 'text-white'}`} /> :
+                          ele === '3' ? <CiWallet className={`h-6 w-6 ${tab == ele ? 'text-[#6EACDA]' : 'text-white'}`} /> :
+                            ele === '4' ? <MdShoppingBag className={`h-6 w-6 ${tab == ele ? 'text-[#6EACDA]' : 'text-white'}`} /> :
                               ''
                   }
                 />
@@ -88,7 +88,7 @@ const Dashboard = () => {
         </div>
       </div>
       <div className='w-[100%] md:w-[94%] lg:w-[95%] xl:w-[96%] overflow-y-scroll hidden-scrollbar'>
-        <div className="flex justify-between p-4 bg-gray-800 sticky top-0 z-20">
+        <div className="flex justify-between items-center p-4 bg-gray-800 sticky top-0 z-20">
           <TextField
             variant="outlined"
             size="small"
@@ -114,7 +114,7 @@ const Dashboard = () => {
               <Avatar className='cursor-pointer' />
             </div>
           </div>
-          <div className='block md:hidden'><MenuIcon className='cursor-pointer' /></div>
+          <div className='block md:hidden'><MenuIcon className='cursor-pointer' onClick={() => setOpen(true)} /></div>
         </div>
         <div className='grid grid-cols-6 m-4'>
           <div className='col-span-6 pb-4 text-2xl font-medium'>Dashboard</div>
@@ -202,7 +202,7 @@ const Dashboard = () => {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
-                  <Bar dataKey="uv" fill="#8884d8" barSize={30} shape={<OvalBar />} />
+                  <Bar dataKey="uv" fill="#6EACDA" barSize={30} shape={<OvalBar />} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -379,14 +379,14 @@ const Dashboard = () => {
                 sx={{
                   minWidth: 0, // Allows the Tab to shrink to fit content
                   flex: 1, // Make tabs expand to fill available space
-                  color: tab === ele ? 'primary.main' : 'white',
+                  color: tab == ele ? '#6EACDA' : 'white',
                 }}
                 icon={
-                  ele === '1' ? <HiHome className='h-6 w-6' /> :
-                    ele === '2' ? <AssessmentIcon className='h-6 w-6' /> :
-                      ele === '3' ? <AssignmentTurnedInIcon className='h-6 w-6' /> :
-                        ele === '4' ? <CiWallet className='h-6 w-6' /> :
-                          ele === '5' ? <MdShoppingBag className='h-6 w-6' /> :
+                  ele === '0' ? <HiHome className={`h-6 w-6 ${tab == ele ? 'text-[#6EACDA]' : 'text-white'}`} /> :
+                    ele === '1' ? <AssessmentIcon className={`h-6 w-6 ${tab == ele ? 'text-[#6EACDA]' : 'text-white'}`} /> :
+                      ele === '2' ? <AssignmentTurnedInIcon className={`h-6 w-6 ${tab == ele ? 'text-[#6EACDA]' : 'text-white'}`} /> :
+                        ele === '3' ? <CiWallet className={`h-6 w-6 ${tab == ele ? 'text-[#6EACDA]' : 'text-white'}`} /> :
+                          ele === '4' ? <MdShoppingBag className={`h-6 w-6 ${tab == ele ? 'text-[#6EACDA]' : 'text-white'}`} /> :
                             ''
                 }
               />
@@ -394,6 +394,8 @@ const Dashboard = () => {
           </Tabs>
         </div>
       </div>
+      <Drawer anchor={"right"} open={open} onClose={() => setOpen(false)} className={``}>
+      </Drawer>
     </div>
   );
 };
