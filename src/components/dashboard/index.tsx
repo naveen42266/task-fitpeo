@@ -6,6 +6,7 @@ import Rating from '@mui/material/Rating';
 import { CiWallet } from "react-icons/ci";
 import { MdShoppingBag } from "react-icons/md";
 import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import InterestsIcon from '@mui/icons-material/Interests';
 import AssessmentIcon from '@mui/icons-material/Assessment';
@@ -394,7 +395,17 @@ const Dashboard = () => {
           </Tabs>
         </div>
       </div>
-      <Drawer anchor={"right"} open={open} onClose={() => setOpen(false)} className={``}>
+      <Drawer anchor={"top"} open={open} onClose={() => setOpen(false)} sx={{ height: '100%', width: '100%' }}>
+        <div className='block md:hidden p-4' style={{ height: '100%', width: '100%' }}>
+          <div className='flex justify-end'><CloseIcon onClick={() => setOpen(false)} /></div>
+          <div className='flex flex-col gap-3'>
+            <div className='flex justify-start items-center gap-3'><Avatar className='cursor-pointer' /> My Account</div>
+            <div className='flex justify-start items-center gap-3'><div className='bg-gray-700 py-1 px-1.5 rounded-full cursor-pointer'><MailOutlineIcon className='text-[#BEC6A0]' /></div>Message</div>
+            <div className='flex justify-start items-center gap-3'><div className='bg-gray-700 py-1 px-1.5 rounded-full cursor-pointer'><SettingsOutlinedIcon className='text-[#BEC6A0]' /></div> Settings</div>
+            <div className='flex justify-start items-center gap-3'><div className='bg-gray-700 py-1 px-1.5 rounded-full cursor-pointer'><NotificationsNoneOutlinedIcon className='text-[#BEC6A0]' /></div>Notifications</div>
+            <div className='flex justify-start items-center gap-3'><div className='bg-gray-700 p-1.5 rounded-full cursor-pointer'><RiLogoutCircleRLine className='text-[#BEC6A0] h-6 w-6' /></div>Logout</div>
+          </div>
+        </div>
       </Drawer>
     </div>
   );
